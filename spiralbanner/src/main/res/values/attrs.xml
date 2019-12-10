@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SpiralBanner">
+        <!--页面切换间隔-->
+        <attr name="duration" format="integer" />
+        <!--OffscreenPageLimit-->
+        <attr name="page_limit" format="integer" />
+        <!--是否自动轮播，默认为ture-->
+        <attr name="auto_play" format="boolean" />
+        <attr name="inner_margin_left" format="dimension" />
+        <attr name="inner_margin_right" format="dimension" />
+        <attr name="inner_margin_top" format="dimension" />
+        <attr name="inner_margin_bottom" format="dimension" />
+    </declare-styleable>
+</resources>
