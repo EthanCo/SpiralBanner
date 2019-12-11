@@ -2,6 +2,7 @@ package com.heiko.spiralbannersample;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.heiko.spiralbanner.transformer.LoopTransformer;
 import java.util.ArrayList;
 import java.util.List;
 
+//详见 https://blog.csdn.net/smile_running/article/details/81078939
 public class MainActivity extends AppCompatActivity {
     private SpiralBanner mSpiralBanner;
 
@@ -43,5 +45,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mSpiralBanner.setPageTransformer(false, new LoopTransformer());
+
+
+        Button btnShowDialog = findViewById(R.id.btn_show_dialog);
+        btnShowDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }

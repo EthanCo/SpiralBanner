@@ -23,6 +23,11 @@ public abstract class SpiralAdapter<T> extends PagerAdapter {
 
     public SpiralAdapter(Context context, @LayoutRes int layoutRes, List<T> data) {
         LayoutInflater inflater = LayoutInflater.from(context);
+        // data集合中的图片个数在[2,3]时会存在问题，递归再次填充一遍
+        if (data.size() > 1 && data.size() < 6) {
+            data.addAll(data);
+            data.addAll(data);
+        }
         mViews = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
             mViews.add(inflater.inflate(layoutRes, null, false));
@@ -30,9 +35,13 @@ public abstract class SpiralAdapter<T> extends PagerAdapter {
         mData = data;
     }
 
+    public int getDataCount() {
+        return mData.size();
+    }
+
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;//返回一个无限大的值，可以 无限循环
+        return mData.size() <= 1 ? mData.size() : Integer.MAX_VALUE;
     }
 
     /**

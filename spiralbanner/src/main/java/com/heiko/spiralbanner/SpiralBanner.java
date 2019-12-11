@@ -30,6 +30,7 @@ public class SpiralBanner extends FrameLayout implements ViewPager.OnPageChangeL
         }
     };
     private int duration;
+    private boolean autoPlay;
 
     public SpiralBanner(@NonNull Context context) {
         super(context);
@@ -51,7 +52,7 @@ public class SpiralBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
         duration = ta.getInt(R.styleable.SpiralBanner_duration, 2000);
         int pageLimit = ta.getInt(R.styleable.SpiralBanner_page_limit, -1);
-        boolean autoPlay = ta.getBoolean(R.styleable.SpiralBanner_auto_play, true);
+        autoPlay = ta.getBoolean(R.styleable.SpiralBanner_auto_play, true);
         float marginLeft = ta.getDimension(R.styleable.SpiralBanner_inner_margin_left, 0);
         float marginRight = ta.getDimension(R.styleable.SpiralBanner_inner_margin_right, 0);
         float marginTop = ta.getDimension(R.styleable.SpiralBanner_inner_margin_top, 0);
@@ -68,10 +69,6 @@ public class SpiralBanner extends FrameLayout implements ViewPager.OnPageChangeL
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         lp.setMargins((int) marginLeft, (int) marginTop, (int) marginRight, (int) marginBottom);
         addView(mViewPager, lp);
-
-        if (autoPlay) {
-            startPlay();
-        }
     }
 
     private void startPlay() {
@@ -86,6 +83,11 @@ public class SpiralBanner extends FrameLayout implements ViewPager.OnPageChangeL
 
     public void setAdapter(SpiralAdapter adapter) {
         mViewPager.setAdapter(adapter);
+        int dataCount = adapter.getDataCount();
+        mViewPager.setCurrentItem(((Integer.MAX_VALUE / 2) / dataCount) * dataCount, false);
+        if (autoPlay) {
+            startPlay();
+        }
     }
 
     @Override
@@ -106,5 +108,9 @@ public class SpiralBanner extends FrameLayout implements ViewPager.OnPageChangeL
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         mHandler.removeCallbacksAndMessages(null);
+    }
+
+    public ViewPager getViewPager() {
+        return mViewPager;
     }
 }
